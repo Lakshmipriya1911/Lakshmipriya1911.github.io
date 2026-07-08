@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lakshmi Priya Ramireddy — AI Engineer</title>
 <meta name="description" content="AI Engineer portfolio — RAG systems, computer vision, and data engineering, with published research and tested, verifiable projects.">
+
+<!-- Favicon: a simple monogram matching the site's bracket/signal motif -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2314213D'/%3E%3Cpath d='M14 14h10M14 14v10M50 14h-10M50 14v10M14 50h10M14 50v-10M50 50h-10M50 50v-10' stroke='%23FF6B35' stroke-width='4' fill='none' stroke-linecap='square'/%3E%3Ctext x='32' y='39' font-family='monospace' font-size='18' font-weight='700' fill='%23F2F3F5' text-anchor='middle'%3ELP%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lakshmi Priya Ramireddy — AI Engineer">
+<meta property="og:description" content="RAG systems, computer vision, and data engineering — 27/27 tests passing across 3 shipped projects, plus a published, peer-reviewed paper.">
+<meta property="og:url" content="https://lakshmipriya1911.github.io">
+<meta property="og:image" content="https://lakshmipriya1911.github.io/profile_photo.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lakshmi Priya Ramireddy — AI Engineer">
+<meta name="twitter:description" content="RAG systems, computer vision, and data engineering — tested and verifiable, not just claimed.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -25,6 +39,26 @@
     --max: 920px;
   }
 
+  [data-theme="dark"] {
+    --ink: #EDEFF4;
+    --ink-soft: #A6ADBB;
+    --fog: #12151F;
+    --paper: #1A1E2B;
+    --line: #2C3140;
+    --signal: #FF7A47;
+    --signal-dim: #3A2418;
+    --confirm: #3FC172;
+    --confirm-dim: #123822;
+  }
+
+  .theme-toggle {
+    font-family: var(--mono); font-size: 12px; background: transparent;
+    border: 1.5px solid var(--line); color: var(--ink-soft);
+    border-radius: 6px; padding: 7px 11px; cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .theme-toggle:hover { border-color: var(--signal); color: var(--ink); }
+
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
@@ -40,6 +74,7 @@
     font-family: var(--body);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   a { color: inherit; }
@@ -103,8 +138,49 @@
     width: 20px; height: 20px;
   }
 
+  /* Scan line: a thin signal-colored line that sweeps down once when the
+     hero frame enters view, echoing a detector "scanning" its target. */
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--signal), transparent);
+    top: 0; opacity: 0; pointer-events: none;
+  }
+  .bracket-frame.scanning .scan-line {
+    animation: scan-sweep 1.6s ease-in-out 1;
+  }
+  @keyframes scan-sweep {
+    0%   { top: 0%;   opacity: 0; }
+    8%   { opacity: 0.9; }
+    92%  { opacity: 0.9; }
+    100% { top: 100%; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bracket-frame.scanning .scan-line { animation: none; }
+  }
+
   /* ---------- Hero ---------- */
   header.hero { padding: 100px 0 60px; }
+  .hero-grid {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap-reverse;
+  }
+  .hero-text { flex: 1; min-width: 280px; }
+  .hero-photo-wrap { position: relative; flex-shrink: 0; padding: 10px; }
+  .hero-photo-wrap::before, .hero-photo-wrap::after {
+    content: ""; position: absolute; width: 22px; height: 22px;
+    border: 3px solid var(--signal);
+  }
+  .hero-photo-wrap::before { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .hero-photo-wrap::after { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .hero-photo {
+    width: 148px; height: 148px; border-radius: 50%;
+    object-fit: cover; display: block;
+    border: 3px solid var(--paper);
+    box-shadow: 0 2px 14px rgba(20,33,61,0.14);
+  }
+  @media (max-width: 620px) {
+    .hero-photo { width: 108px; height: 108px; }
+  }
   .eyebrow {
     font-family: var(--mono); font-size: 13px; color: var(--signal);
     letter-spacing: 0.12em; margin: 0 0 18px; font-weight: 600;
@@ -163,6 +239,13 @@
     margin: 0; font-weight: 600;
   }
   .lede { color: var(--ink-soft); max-width: 640px; margin-top: 12px; font-size: 16px; }
+
+  .now-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+    padding: 22px 26px;
+  }
+  .now-card p { margin: 0 0 10px; font-size: 14.5px; }
+  .now-card p:last-child { margin-bottom: 0; }
 
   /* ---------- Skills ---------- */
   .skill-group { margin-bottom: 20px; }
@@ -260,8 +343,12 @@
   .footer-note { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); max-width: 480px; }
 
   /* ---------- Scroll reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+  /* Content is visible by default. Only when JS confirms it can run the
+     reveal animation (html.js-ready) do we hide-then-fade elements in --
+     this way a slow/blocked script, or a crawler/screenshot tool, never
+     leaves real content invisible. */
+  html.js-ready .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  html.js-ready .reveal.in { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
@@ -273,6 +360,7 @@
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#publication">Research</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">◐ theme</button>
       <a href="#contact" class="nav-cta">Contact</a>
     </div>
   </div>
@@ -282,19 +370,27 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="bracket-frame">
+    <div class="bracket-frame" id="heroFrame">
       <span class="bc-tr"></span><span class="bc-bl"></span>
-      <p class="eyebrow">status: verified</p>
-      <h1 class="name">Lakshmi Priya<br>Ramireddy</h1>
-      <p class="tagline">
-        <strong>AI Engineer</strong> building retrieval, vision, and data
-        systems that are tested before they're claimed — RAG pipelines,
-        computer vision, and ETL, backed by a published, peer-reviewed paper.
-      </p>
-      <div class="hero-ctas">
-        <a class="btn btn-solid" href="Lakshmi_Priya_Ramireddy_AI_Engineer_Resume.docx" download>↓ Resume</a>
-        <a class="btn btn-outline" href="https://github.com/Lakshmipriya1911" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="btn btn-outline" href="mailto:lakshmipriyareddy3@gmail.com">Email</a>
+      <span class="scan-line"></span>
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">status: verified</p>
+          <h1 class="name">Lakshmi Priya<br>Ramireddy</h1>
+          <p class="tagline">
+            <strong>AI Engineer</strong> building retrieval, vision, and data
+            systems that are tested before they're claimed — RAG pipelines,
+            computer vision, and ETL, backed by a published, peer-reviewed paper.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-solid" href="Lakshmi_Priya_Ramireddy_AI_Engineer_Resume.docx" download>↓ Resume</a>
+            <a class="btn btn-outline" href="https://github.com/Lakshmipriya1911" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="btn btn-outline" href="mailto:lakshmipriyareddy3@gmail.com">Email</a>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img src="profile_photo.jpg" alt="Lakshmi Priya Ramireddy" class="hero-photo">
+        </div>
       </div>
     </div>
 
@@ -330,6 +426,36 @@
         what's reference code — the same standard I'd want to hold real production
         systems to.
       </p>
+    </div>
+  </div>
+</section>
+
+<section id="now">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="section-tag">// now</p>
+      <h2>Currently</h2>
+    </div>
+    <div class="now-card reveal">
+      <p>🎯 Applying for AI Engineer roles for after graduation (Apr 2026)</p>
+      <p>🛠️ Considering an agentic tool-use project as the next build</p>
+      <p>📚 Coursework this term: advanced NLP and Information Retrieval</p>
+    </div>
+  </div>
+</section>
+
+<section id="github-activity">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="section-tag">// live</p>
+      <h2>GitHub activity</h2>
+      <p class="lede">Pulled live from my real GitHub account — not a static screenshot.</p>
+    </div>
+    <div class="reveal" style="display:flex; flex-direction:column; gap:14px;">
+      <img src="https://github-readme-stats.vercel.app/api?username=Lakshmipriya1911&show_icons=true&theme=default&hide_border=true&bg_color=FFFFFF&title_color=14213D&text_color=4B5563&icon_color=FF6B35"
+           alt="Lakshmi Priya's GitHub stats" loading="lazy" style="max-width:100%; border-radius:10px;">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Lakshmipriya1911&layout=compact&hide_border=true&bg_color=FFFFFF&title_color=14213D&text_color=4B5563"
+           alt="Lakshmi Priya's most-used languages" loading="lazy" style="max-width:320px; border-radius:10px;">
     </div>
   </div>
 </section>
@@ -434,6 +560,8 @@
             <li>Extended into a live web app and video-processing CLI with pluggable detectors — a tested, dependency-free classical CV backend and a YOLO backend matching the published paper's approach.</li>
           </ul>
         </div>
+        <img src="pothole_demo_screenshot.jpg" alt="Real output from the classical CV detector: two detected potholes with confidence scores drawn as bounding boxes" loading="lazy" style="width:100%; border-radius:6px; margin-bottom:14px; border:1px solid var(--line);">
+        <p style="font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); margin:-8px 0 14px;">↑ actual output from the classical CV detector — not a mockup</p>
         <div class="tech-tags">
           <span class="tech-tag">YOLO</span><span class="tech-tag">OpenCV</span><span class="tech-tag">Flask</span><span class="tech-tag">KNN</span>
         </div>
@@ -564,7 +692,7 @@
 <footer id="contact">
   <div class="wrap">
     <div class="footer-row reveal">
-      <p class="footer-note">Every claim on this page is backed by a tested repository or a DOI. Happy to walk through any of it — code, tests, or the paper.</p>
+      <p class="footer-note">Every claim on this page is backed by a tested repository or a DOI. Happy to walk through any of it — code, tests, or the paper.<br><span id="lastUpdated"></span></p>
       <div class="hero-ctas" style="margin-bottom:0;">
         <a class="btn btn-solid" href="mailto:lakshmipriyareddy3@gmail.com">lakshmipriyareddy3@gmail.com</a>
         <a class="btn btn-outline" href="https://github.com/Lakshmipriya1911" target="_blank" rel="noopener">GitHub ↗</a>
@@ -574,6 +702,8 @@
 </footer>
 
 <script>
+  document.documentElement.classList.add('js-ready');
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -584,6 +714,44 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Safety net: if for any reason an element never intersects (e.g. it's
+  // already fully in view at load in a way the observer misses), reveal
+  // everything after 2s regardless, so content can never get permanently stuck hidden.
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in'));
+  }, 2000);
+
+  // Signature scan animation: fires once, when the hero frame first enters view
+  const heroFrame = document.getElementById('heroFrame');
+  const scanObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('scanning');
+        scanObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  if (heroFrame) scanObserver.observe(heroFrame);
+
+  // Dark mode toggle, persisted across visits
+  const toggleBtn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const stored = localStorage.getItem('theme');
+  if (stored === 'dark') root.setAttribute('data-theme', 'dark');
+  toggleBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      root.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      root.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+  // Last-updated date: set this to the date you last edited the page
+  document.getElementById('lastUpdated').textContent = 'Last updated: July 2026';
 </script>
 
 </body>
